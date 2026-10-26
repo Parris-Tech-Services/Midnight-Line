@@ -15,6 +15,11 @@ export default function TrainHubView({ passenger, nextStation, impactScore, onDe
       if (tree) {
         const rootNode = getDialogueNode(tree, tree.root);
         setDialogueNode(rootNode);
+        setShowDepart(!rootNode);
+      } else {
+        // Not every passenger has train-hub dialogue. Never trap the run.
+        setDialogueNode(null);
+        setShowDepart(true);
       }
     }
   }, [passenger]);
