@@ -10,6 +10,7 @@ on:
       - 'package-lock.json'
       - 'playwright.config.cjs'
       - 'tests/browser/**'
+      - 'tests/security/**'
       - '.github/workflows/playwright-browser.yml'
   pull_request:
     paths:
@@ -19,11 +20,13 @@ on:
       - 'package-lock.json'
       - 'playwright.config.cjs'
       - 'tests/browser/**'
+      - 'tests/security/**'
 permissions:
   contents: read
 jobs:
   browser:
-    runs-on: ubuntu-latest
+    # Match the supported OS matrix of the pinned Playwright version.
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
@@ -31,9 +34,10 @@ jobs:
         with:
           node-version: '20'
           cache: npm
-      - run: npm ci
-      - run: npm install --no-save --package-lock=false @playwright/test@1.56.1
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm install --no-save --package-lock=false --ignore-scripts --no-audit --no-fund @playwright/test@1.56.1
       - run: npx playwright install --with-deps chromium
+      - run: npm run test:security
       - run: npm run build
       - run: npx playwright test
       - if: always()
