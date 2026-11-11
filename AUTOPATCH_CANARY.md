@@ -65,3 +65,7 @@ desktop and emulated mobile. The standard CI browser gate still must pass.
 Podcast scripts are copied from the existing root files into the isolated static
 output; the existing build does not copy them automatically. No source script is
 changed. The preview release manifest is generated evidence, not signed provenance.
+
+CI initially stopped before tests because ubuntu-latest moved to Ubuntu 26.04,
+unsupported by the existing Playwright 1.56.1 pin. The workflow now explicitly
+uses supported Ubuntu 24.04; no browser or security checks are disabled.
