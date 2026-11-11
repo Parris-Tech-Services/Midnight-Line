@@ -14,7 +14,7 @@ async function leaveHub(page) {
     const continueDialogue = page.getByRole('button', { name: 'Continue dialogue' });
     // React effects can select either valid hub state after the heading appears.
     // Wait for the actual control before branching; do not assume dialogue exists.
-    await expect(depart.or(continueDialogue)).toBeVisible();
+    await expect(depart.or(continueDialogue).first()).toBeVisible();
     if (await depart.isVisible()) {
       await depart.click();
       return;

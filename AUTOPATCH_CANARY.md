@@ -59,3 +59,9 @@ The sandbox's pinned Playwright installer does not recognise its Ubuntu version;
 local runs use the already-installed Chromium executable through an uncommitted
 configuration adapter. CI retains the repository's standard browser installation.
 Isolated preview builds use `npm run build -- --base=./` for subpath hosting.
+
+Final local browser matrix: **36/36 passed**, six passengers, three response paths,
+desktop and emulated mobile. The standard CI browser gate still must pass.
+Podcast scripts are copied from the existing root files into the isolated static
+output; the existing build does not copy them automatically. No source script is
+changed. The preview release manifest is generated evidence, not signed provenance.
