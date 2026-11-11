@@ -46,3 +46,16 @@ not an OSV no-record classification, and not proof of production remediation.
   remain separate AutoPatch integration work.
 - An agent-produced report is not trusted attestation. Do not mark the complete
   system VERIFIED_FIXED merely because these local checks pass.
+
+## Browser-harness correction
+
+The first runnable browser sweep passed 32/36 journeys. Four desktop cases checked
+for dialogue during React's transition to the already-visible departure state.
+The harness now waits for either legitimate hub control before branching.
+No journey, passenger, station, security assertion, or application code was removed.
+The esbuild security regression is unchanged. Re-run the entire browser matrix.
+
+The sandbox's pinned Playwright installer does not recognise its Ubuntu version;
+local runs use the already-installed Chromium executable through an uncommitted
+configuration adapter. CI retains the repository's standard browser installation.
+Isolated preview builds use `npm run build -- --base=./` for subpath hosting.

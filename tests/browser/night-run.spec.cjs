@@ -11,11 +11,14 @@ async function leaveHub(page) {
   await expect(page.getByRole('heading', { name: 'The Midnight Train' })).toBeVisible();
   for (let i = 0; i < 15; i++) {
     const depart = page.getByRole('button', { name: /Depart for/i });
+    const continueDialogue = page.getByRole('button', { name: 'Continue dialogue' });
+    // React effects can select either valid hub state after the heading appears.
+    // Wait for the actual control before branching; do not assume dialogue exists.
+    await expect(depart.or(continueDialogue)).toBeVisible();
     if (await depart.isVisible()) {
       await depart.click();
       return;
     }
-    const continueDialogue = page.getByRole('button', { name: 'Continue dialogue' });
     await expect(continueDialogue).toBeVisible();
     await continueDialogue.click();
   }
