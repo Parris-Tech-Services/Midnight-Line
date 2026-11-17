@@ -25,12 +25,8 @@ export interface AudioManager {
  */
 class HowlerAudioManager implements AudioManager {
   private musicHowl: Howl | null = null;
-  private ambientHowls: Record<AmbientType, Howl> = {
-    train_hum: new Howl({ src: ['/audio/ambient_train.mp3'], loop: true }),
-    station_echo: new Howl({ src: ['/audio/ambient_echo.mp3'], loop: true }),
-    wind: new Howl({ src: ['/audio/ambient_wind.mp3'], loop: true }),
-    silence: new Howl({ src: [''], loop: true })
-  };
+  // Assets are not shipped. Avoid eager requests for non-existent audio.
+  private ambientHowls: Partial<Record<AmbientType, Howl>> = {};
   private sfxVolume = 0.5;
   private musicVolume = 0.7;
   private masterVolume = 1.0;
@@ -76,7 +72,7 @@ class HowlerAudioManager implements AudioManager {
       if (!this.ambientHowls[ambient]) {
         this.ambientHowls[ambient] = new Howl({ src: [ambientFiles[ambient]], volume: volume * this.masterVolume, loop: true });
       }
-      this.ambientHowls[ambient].play();
+      this.ambientHowls[ambient]?.play();
     }
   }
 
@@ -136,27 +132,28 @@ export function transitionAudio(from: AudioTrack, to: AudioTrack) {
 }
 
 // Ensure musicFiles, sfxFiles, and ambientFiles are defined in the correct scope
+// TODO: replace missing tracks with properly licensed music before enabling playback.
 const musicFiles: Record<AudioTrack, string> = {
-  train_hub: '/audio/train_hub.mp3',
-  station_regret: '/audio/station_regret.mp3',
-  station_unsent: '/audio/station_unsent.mp3',
-  station_beginning: '/audio/station_beginning.mp3',
-  title: '/audio/title.mp3',
-  epilogue: '/audio/epilogue.mp3'
+  train_hub: '',
+  station_regret: '',
+  station_unsent: '',
+  station_beginning: '',
+  title: '',
+  epilogue: ''
 };
 
 const sfxFiles: Record<SFXType, string> = {
-  choice_select: '/audio/sfx_choice.mp3',
-  train_depart: '/audio/sfx_depart.mp3',
-  heart_open: '/audio/sfx_heart_open.mp3',
-  heart_close: '/audio/sfx_heart_close.mp3',
-  station_arrival: '/audio/sfx_arrival.mp3',
-  transition: '/audio/sfx_transition.mp3'
+  choice_select: '',
+  train_depart: '',
+  heart_open: '',
+  heart_close: '',
+  station_arrival: '',
+  transition: ''
 };
 
 const ambientFiles: Record<AmbientType, string> = {
-  train_hum: '/audio/ambient_train.mp3',
-  station_echo: '/audio/ambient_echo.mp3',
-  wind: '/audio/ambient_wind.mp3',
+  train_hum: '',
+  station_echo: '',
+  wind: '',
   silence: ''
 };
