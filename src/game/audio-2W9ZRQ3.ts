@@ -27,34 +27,35 @@ export interface AudioManager {
 // manager implementation remains below.
 
 // Example audio file map (replace with real assets)
+// TODO: replace missing tracks with properly licensed music before enabling playback.
 const musicFiles: Record<AudioTrack, string> = {
-  train_hub: '/audio/train_hub.mp3',
-  station_regret: '/audio/station_regret.mp3',
-  station_unsent: '/audio/station_unsent.mp3',
-  station_beginning: '/audio/station_beginning.mp3',
-  title: '/audio/title.mp3',
-  epilogue: '/audio/epilogue.mp3'
+  train_hub: '',
+  station_regret: '',
+  station_unsent: '',
+  station_beginning: '',
+  title: '',
+  epilogue: ''
 };
 
 const sfxFiles: Record<SFXType, string> = {
-  choice_select: '/audio/sfx_choice.mp3',
-  train_depart: '/audio/sfx_depart.mp3',
-  heart_open: '/audio/sfx_heart_open.mp3',
-  heart_close: '/audio/sfx_heart_close.mp3',
-  station_arrival: '/audio/sfx_arrival.mp3',
-  transition: '/audio/sfx_transition.mp3'
+  choice_select: '',
+  train_depart: '',
+  heart_open: '',
+  heart_close: '',
+  station_arrival: '',
+  transition: ''
 };
 
 const ambientFiles: Record<AmbientType, string> = {
-  train_hum: '/audio/ambient_train.mp3',
-  station_echo: '/audio/ambient_echo.mp3',
-  wind: '/audio/ambient_wind.mp3',
+  train_hum: '',
+  station_echo: '',
+  wind: '',
   silence: ''
 };
 
 class HowlerAudioManager implements AudioManager {
   private musicHowl: Howl | null = null;
-  // Lazily-created ambient Howls. Partial allows keys to be undefined until created.
+  // Lazily-created ambient Howls. Files are not yet bundled; stay silent.
   private ambientHowls: Partial<Record<AmbientType, Howl>> = {};
   private sfxVolume = 0.5;
   private musicVolume = 0.7;
